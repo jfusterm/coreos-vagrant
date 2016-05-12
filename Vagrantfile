@@ -20,6 +20,7 @@ $vm_memory = 1024
 $vm_cpus = 1
 $shared_folders = {}
 $forwarded_ports = {}
+$docker_images = false
 
 # Attempt to apply the deprecated environment variable NUM_INSTANCES to
 # $num_instances while allowing config.rb to override it
@@ -137,6 +138,21 @@ Vagrant.configure("2") do |config|
         config.vm.provision :file, :source => "#{CLOUD_CONFIG_PATH}", :destination => "/tmp/vagrantfile-user-data"
         config.vm.provision :shell, :inline => "mv /tmp/vagrantfile-user-data /var/lib/coreos-vagrant/", :privileged => true
       end
+
+      config.vm.provision :shell, :inline => "mkdir -p /opt/bin"
+
+      # Get Calico
+      config.vm.provision :shell, :inline => "curl -o /opt/bin/calicoctl -L https://github.com/projectcalico/calico-containers/releases/download/v0.19.0/calicoctl"
+      config.vm.provision :shell, :inline => "chmod +x /opt/bin/calicoctl"
+
+      # Get Weave
+      config.vm.provision :shell, :inline => "curl -o /opt/bin/weave -L git.io/weave"
+      config.vm.provision :shell, :inline => "chmod +x /opt/bin/weave"
+
+      # Pre-load Docker images
+     if $docker_images
+       config.vm.provision :docker, images: ["calico/node:v0.19.0","weaveworks/weaveexec:1.5.1","weaveworks/weave:1.5.1","weaveworks/plugin:1.5.1","alpine:latest"]
+     end
 
     end
   end

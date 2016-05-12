@@ -1,7 +1,14 @@
-# CoreOS Vagrant
+# CoreOS Vagrant with Calico for Containers and Weave Net
 
-This repo provides a template Vagrantfile to create a CoreOS virtual machine using the VirtualBox software hypervisor.
-After setup is complete you will have a single CoreOS virtual machine running on your local machine.
+This repo based on [coreos/coreos-vagrant](https://github.com/coreos/coreos-vagrant) provides a template Vagrantfile to create a CoreOS cluster with [Calico for containers](https://www.projectcalico.org/) and [Weave Net](https://www.weave.works/) on it using the [VirtualBox](https://www.virtualbox.org/) software hypervisor.
+After setup is complete you will have 3 CoreOS virtual machines running on your local machine.
+
+The main changes introduced are:
+
+* Add [Calico for containers](https://github.com/projectcalico/calico-containers).
+* Add [Weave Net](https://www.weave.works/products/weave-net/).
+* Pre-load the Docker images for Calico and Weave.
+* Disable Docker's userland proxy (aka docker-proxy)
 
 ## Streamlined setup
 
@@ -76,7 +83,6 @@ After a 'vagrant reload' you will be prompted for your local machine password.
 The Vagrantfile will provision your CoreOS VM(s) with [coreos-cloudinit][coreos-cloudinit] if a `user-data` file is found in the project directory.
 coreos-cloudinit simplifies the provisioning process through the use of a script or cloud-config document.
 
-To get started, copy `user-data.sample` to `user-data` and make any necessary modifications.
 Check out the [coreos-cloudinit documentation][coreos-cloudinit] to learn about the available features.
 
 [coreos-cloudinit]: https://github.com/coreos/coreos-cloudinit
@@ -84,7 +90,6 @@ Check out the [coreos-cloudinit documentation][coreos-cloudinit] to learn about 
 #### Configuration
 
 The Vagrantfile will parse a `config.rb` file containing a set of options used to configure your CoreOS cluster.
-See `config.rb.sample` for more information.
 
 ## Cluster Setup
 
