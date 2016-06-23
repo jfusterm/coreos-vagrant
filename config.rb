@@ -92,7 +92,7 @@ end
 #$docker_images=true
 
 # Calico version
-$calico_version = "v0.19.0"
+$calico_version = "v0.20.0"
 
 # Weave version
-$weave_version = "1.5.1"
+$weave_version = "1.6.0"
