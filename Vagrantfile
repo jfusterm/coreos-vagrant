@@ -142,7 +142,7 @@ Vagrant.configure("2") do |config|
       config.vm.provision :shell, :inline => "mkdir -p /opt/bin"
 
       # Get Calico
-      config.vm.provision :shell, :inline => "curl -o /opt/bin/calicoctl -L https://github.com/projectcalico/calico-containers/releases/download/v0.19.0/calicoctl"
+      config.vm.provision :shell, :inline => "curl -o /opt/bin/calicoctl -L https://github.com/projectcalico/calico-containers/releases/download/#{$calico_version}/calicoctl"
       config.vm.provision :shell, :inline => "chmod +x /opt/bin/calicoctl"
 
       # Get Weave
@@ -151,7 +151,7 @@ Vagrant.configure("2") do |config|
 
       # Pre-load Docker images
      if $docker_images
-       config.vm.provision :docker, images: ["calico/node:v0.19.0","weaveworks/weaveexec:1.5.1","weaveworks/weave:1.5.1","weaveworks/plugin:1.5.1","alpine:latest"]
+       config.vm.provision :docker, images: ["calico/node:#{$calico_version}","weaveworks/weaveexec:#{$weave_version}","weaveworks/weave:#{$weave_version}","weaveworks/plugin:#{$weave_version}","alpine:latest"]
      end
 
     end

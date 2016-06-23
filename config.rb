@@ -90,3 +90,9 @@ end
 
 # Pre-load the required docker images to run Calico and Weave.
 #$docker_images=true
+
+# Calico version
+$calico_version = "v0.19.0"
+
+# Weave version
+$weave_version = "1.5.1"
